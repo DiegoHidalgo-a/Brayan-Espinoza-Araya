@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,6 +19,10 @@ const Navigation: React.FC = () => {
     { name: 'GALERÍA', href: '/galeria' },
     { name: 'SPONSORS', href: '/sponsors' },
   ];
+
+  const openSearch = () => {
+    console.log('Search opened');
+  };
 
   return (
     <>
@@ -45,6 +50,13 @@ const Navigation: React.FC = () => {
             </a>
           </motion.div>
           <div className="flex items-center space-x-4">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              onClick={openSearch}
+              className={`p-1 ${isScrolled ? 'text-blue-600' : 'text-white'}`}
+            >
+              <Search className="w-5 h-5" />
+            </motion.button>
             <a href="/contacto">
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -118,6 +130,12 @@ const Navigation: React.FC = () => {
         
         {/* Icons */}
         <div className="flex items-center space-x-6 ml-8">
+          <button
+            onClick={openSearch}
+            className={`p-2 transition-colors duration-500 ${isScrolled ? 'text-blue-600 hover:text-gray-600' : 'text-white hover:text-gray-300'}`}
+          >
+            <Search className="w-6 h-6" />
+          </button>
           <a href="/contacto">
             <button
               className={`relative p-2 transition-colors duration-500 ${isScrolled ? 'text-blue-600 hover:text-gray-600' : 'text-white hover:text-gray-300'}`}
