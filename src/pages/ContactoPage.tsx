@@ -78,7 +78,7 @@ const ContactoPage: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg md:text-xl max-w-2xl mx-auto"
             >
-              ¿Tienes una propuesta? ¡Me encantaría escucharla
+              ¿Tienes una propuesta? ¡Me encantaría escucharla!
             </motion.p>
           </div>
         </div>
