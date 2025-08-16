@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Placeholder Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-container {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Athlete Portfolio Placeholder Images</h1>
+    <p>Click the buttons below to generate placeholder images for the athlete portfolio.</p>
+    
+    <div>
+        <button onclick="generateHeroImages()">Generate Hero Images</button>
+        <button onclick="generateProfileImages()">Generate Profile Images</button>
+        <button onclick="generateGalleryImages()">Generate Gallery Images</button>
+        <button onclick="generateBackgroundImages()">Generate Background Images</button>
+        <button onclick="generateAllImages()">Generate All Images</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        function createCanvas(width, height, text, bgColor = '#f0f0f0', textColor = '#333') {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Text
+            ctx.fillStyle = textColor;
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width/2, height/2);
+            
+            return canvas;
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function generateHeroImages() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h2>Hero Images</h2>';
+            
+            // Mobile hero
+            const mobileHero = createCanvas(800, 1200, 'Hero Mobile\nBrayan Espinoza', '#2c3e50', '#ecf0f1');
+            const mobileContainer = document.createElement('div');
+            mobileContainer.className = 'image-container';
+            mobileContainer.appendChild(mobileHero);
+            mobileContainer.appendChild(document.createElement('br'));
+            const mobileBtn = document.createElement('button');
+            mobileBtn.textContent = 'Download hero-mobile.jpg';
+            mobileBtn.onclick = () => downloadCanvas(mobileHero, 'hero-mobile.jpg');
+            mobileContainer.appendChild(mobileBtn);
+            output.appendChild(mobileContainer);
+            
+            // Desktop hero
+            const desktopHero = createCanvas(1920, 1080, 'Hero Desktop\nBrayan Espinoza', '#34495e', '#ecf0f1');
+            const desktopContainer = document.createElement('div');
+            desktopContainer.className = 'image-container';
+            desktopContainer.appendChild(desktopHero);
+            desktopContainer.appendChild(document.createElement('br'));
+            const desktopBtn = document.createElement('button');
+            desktopBtn.textContent = 'Download hero-desktop.jpg';
+            desktopBtn.onclick = () => downloadCanvas(desktopHero, 'hero-desktop.jpg');
+            desktopContainer.appendChild(desktopBtn);
+            output.appendChild(desktopContainer);
+        }
+
+        function generateProfileImages() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h2>Profile Images</h2>';
+            
+            const images = [
+                { name: 'athlete-profile.jpg', width: 1200, height: 800, text: 'Profile Photo\nBrayan Espinoza' },
+                { name: 'athlete-competition.jpg', width: 1200, height: 800, text: 'Competition\nBrayan Espinoza' },
+                { name: 'athlete-training.jpg', width: 1200, height: 800, text: 'Training\nBrayan Espinoza' }
+            ];
+            
+            images.forEach(img => {
+                const canvas = createCanvas(img.width, img.height, img.text, '#3498db', '#ecf0f1');
+                const container = document.createElement('div');
+                container.className = 'image-container';
+                container.appendChild(canvas);
+                container.appendChild(document.createElement('br'));
+                const btn = document.createElement('button');
+                btn.textContent = `Download ${img.name}`;
+                btn.onclick = () => downloadCanvas(canvas, img.name);
+                container.appendChild(btn);
+                output.appendChild(container);
+            });
+        }
+
+        function generateGalleryImages() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h2>Gallery Images</h2>';
+            
+            const categories = ['competition', 'training', 'lifestyle', 'sponsors'];
+            const counts = [5, 5, 5, 3];
+            
+            categories.forEach((category, index) => {
+                for (let i = 1; i <= counts[index]; i++) {
+                    const canvas = createCanvas(600, 400, `Gallery ${category} ${i}\nBrayan Espinoza`, '#e74c3c', '#ecf0f1');
+                    const container = document.createElement('div');
+                    container.className = 'image-container';
+                    container.appendChild(canvas);
+                    container.appendChild(document.createElement('br'));
+                    const btn = document.createElement('button');
+                    btn.textContent = `Download gallery-${category}-${i}.jpg`;
+                    btn.onclick = () => downloadCanvas(canvas, `gallery-${category}-${i}.jpg`);
+                    container.appendChild(btn);
+                    output.appendChild(container);
+                }
+            });
+        }
+
+        function generateBackgroundImages() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h2>Background Images</h2>';
+            
+            const images = [
+                { name: 'bg-pattern-1.jpg', width: 1920, height: 1080, text: 'Background Pattern 1', bgColor: '#95a5a6' },
+                { name: 'bg-pattern-2.jpg', width: 1920, height: 1080, text: 'Background Pattern 2', bgColor: '#7f8c8d' },
+                { name: 'bg-stats.jpg', width: 1920, height: 1080, text: 'Statistics Background', bgColor: '#34495e' },
+                { name: 'bg-achievements.jpg', width: 1920, height: 1080, text: 'Achievements Background', bgColor: '#2c3e50' }
+            ];
+            
+            images.forEach(img => {
+                const canvas = createCanvas(img.width, img.height, img.text, img.bgColor, '#ecf0f1');
+                const container = document.createElement('div');
+                container.className = 'image-container';
+                container.appendChild(canvas);
+                container.appendChild(document.createElement('br'));
+                const btn = document.createElement('button');
+                btn.textContent = `Download ${img.name}`;
+                btn.onclick = () => downloadCanvas(canvas, img.name);
+                container.appendChild(btn);
+                output.appendChild(container);
+            });
+        }
+
+        function generateAllImages() {
+            generateHeroImages();
+            setTimeout(() => generateProfileImages(), 1000);
+            setTimeout(() => generateGalleryImages(), 2000);
+            setTimeout(() => generateBackgroundImages(), 3000);
+        }
+    </script>
+</body>
+</html>
+
